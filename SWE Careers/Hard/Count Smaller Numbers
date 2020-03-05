@@ -1,0 +1,15 @@
+# day 56
+# brute force better to use binary search/divide and conquer 
+
+
+class Solution:
+    def countSmaller(self, nums: List[int]) -> List[int]:
+        counts = []
+        c = 0
+        for i in range(len(nums)):
+            for j in range(1+i,len(nums)):
+                if nums[j] < nums[i]:
+                    c+=1
+            counts.append(c)
+            c = 0
+        return counts;
