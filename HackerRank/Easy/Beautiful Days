@@ -1,3 +1,4 @@
+# day 55
 def beautifulDays(i, j, k):
     count = 0
     while i <= j:
