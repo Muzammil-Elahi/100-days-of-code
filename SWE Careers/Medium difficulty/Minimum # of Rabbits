@@ -1,0 +1,38 @@
+# useful links: https://blog.csdn.net/fuxuemingzhu/article/details/79457764
+# https://leetcode.com/problems/rabbits-in-forest/discuss/402722/Python-solution
+# day 60
+
+import collections
+import math
+class Solution:
+    def numRabbits(self, answers: List[int]) -> int:
+       # answers.sort()
+        #count = collections.Counter(answers)
+        #rabbits = 0
+        #for i in count:
+         #   rabbits+= math.ceil((count[i]+i)/(i+1)*(i+1))
+         # above code doesn't for whatever reason always off by 1
+        #return rabbits-1;
+        if len(answers) == 0:
+            return 0
+        d = {}
+        count = 0
+        for num in answers:
+            # If there's no other rabit that has the same color,
+            # the rabbit is one kind of its own
+            if num == 0:
+                count += 1
+            else:
+                # For a rabbit that has n rabbits similar to it, 
+                # the minimum of rabbit there are is n + 1
+                if num not in d:
+                    d[num] = 1
+                    count += (num + 1)
+                else:
+                    d[num] += 1
+                    # If the number of similar rabbits is canceled out,
+                    # we remove it from the dictionary which is being used as a hash table
+                    if d[num] > num:
+                        del d[num]
+        return count
+                
