@@ -1,0 +1,41 @@
+# useful link: https://codesays.com/2014/solution-to-missing-integer-by-codility/
+# day 61
+
+
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        ''' Solve it with Pigeonhole principle.
+        There are N integers in the input. So for the
+        first N+1 positive integers, at least one of
+        them must be missing.
+        '''
+    # We only care about the first N+1 positive integers.
+    # occurrence[i] is for the integer i+1.
+        occurrence = [False] * (len(nums) + 1)
+        for num in nums:
+            if 1 <= num <= len(nums) + 1:
+                occurrence[num-1] = True
+    # Find out the missing minimal positive integer.
+        for index in range(len(nums) + 1):
+            if occurrence[index] == False:
+                return index + 1
+        return -1
+ # ORGINAL CODE: doesnt work for all test cases for whatever reason but logic is there
+ #  Doesn't work for the following test case: [20, 11, 10, 10, 1, 1, 2, 13, 4, 14] output is 15 but supposed to be 3
+        #nums.sort() # makes search easier i.e less time
+        #ans = -1
+        #for i in range(len(nums)):
+        #    if i < len(nums)-1:
+       #         if nums[i] < 0 or nums[i] == nums[i+1]:
+      #              nums.pop(i)
+        # simplified array with no negatives/duplicates
+     #   print(nums)
+    #    for i in range(len(nums)):
+            #print("i",i)
+           # if i == (len(nums) - 1) and ans == -1: # making sure ans has not been found yet
+          #      ans = nums[i] + 1
+         #   elif i < len(nums) - 1 and nums[i+1] != nums[i] + 1:
+        #        ans = nums[i]+1
+       #return ans;
+        
+                
