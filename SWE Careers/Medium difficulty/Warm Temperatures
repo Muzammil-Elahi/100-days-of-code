@@ -1,0 +1,48 @@
+# useful link: https://leetcode.com/problems/daily-temperatures/discuss/109848/python-solution-with-time-complexity-on
+# Day 62
+
+
+class Solution:
+    def dailyTemperatures(self, T: List[int]) -> List[int]:
+        """
+        days = []
+        day_counter = 0
+        i = 0
+        while i < len(T):
+            for j in range(1+i,len(T)):
+                print("T[i] ",T[i],end="")
+                print(" T[j]",T[j])
+                if T[j] > T[i]:
+                    #print("T[j] > T[i]")
+                    days.append(abs(j-i))
+                    i+=1
+                elif j == len(T)-1 and T[i] > T[j] and day_counter == 0:
+                    #print("j ",j)
+                    days.append(0)
+                    i+=1
+                else:
+                    print("T[i] > T[j]")
+                    day_counter+=1
+            day_counter = 0
+        return days;
+        """
+    # Original code (above) timesout... LOGIC IS THERE Time complexity of O(n^2)
+        n = len(T) # so I don't have to keep typeing len(T)
+        days = [0] * n # initialize days to wait with 0
+        closest_temp = [n-1] # indexes of temperatures and initiliaze "Stack"
+        for i in range(n-2, -1, -1): # traverse backwards
+            if T[i+1] > T[i]:
+                days[i] = 1
+            else:
+                while closest_temp:
+                    j = closest_temp[-1]
+                    if T[j] > T[i]:
+                        days[i] = j - i
+                        break
+                    else:
+                        closest_temp.pop() # to get next index since condition not met 
+            closest_temp.append(i) # add index of current temperature to use later for other temperatures 
+        return days # time complexity is aruged to be O(n) but maybe O(n^2)
+        
+        
+        
