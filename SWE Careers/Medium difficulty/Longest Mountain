@@ -1,0 +1,64 @@
+# useful link: https://leetcode.com/problems/longest-mountain-in-array/solution/
+# Day 63
+# O(n) time complexity 
+
+
+class Solution:
+    def longestMountain(self, A: List[int]) -> int:
+        # orginal code breaks for atleast 1 test case
+        # furthermroe did not account for the base of the "mountain"
+        """
+        counter = 0
+        low = 0
+        high = len(A)-1
+        def bin_search(arr,left,right): # problem can be partially solved using H-index
+            mid = (left+right)//2
+            if arr[mid-1] < arr[mid] and arr[mid] < arr[mid+1]: # need to move right
+                left = mid+1
+                bin_search(arr,left,right)
+            elif arr[mid-1] > arr[mid] and arr[mid] > arr[mid+1]: # need to move left
+                right = mid-1
+                bin_search(arr,left,right)
+            elif arr[mid-1] < arr[mid] and arr[mid] > arr[mid+1]:
+                return mid
+            else:
+                return -1
+        index = bin_search(A,low,high)
+        print("index ",index)
+        if index == -1:
+            return 0
+        else:
+            for i in range(index,high+1):
+                if A[i] > A[i+1]:
+                    counter+=1
+                elif A[i] < A[i+1]:
+                    break
+            for i in range(index,-1,-1):
+                if A[i] > A[i-1]:
+                    counter+=1
+                elif A[i] < A[i-1]:
+                    break
+        return counter+1;
+        
+        """
+        n = len(A)
+        ans = base = 0
+        # base starting on the left side of the moutain
+        while base < n:
+            end = base # end will eventually reach the end of the mountain
+            if end + 1 < n and A[end] < A[end + 1]: #if base is a left-boundary
+                #set end to the peak of this potential mountain
+                while end+1 < n and A[end] < A[end+1]:
+                    end += 1 # increment end until it is equal to peak
+
+                if end + 1 < n and A[end] > A[end + 1]: #if end is really a peak..
+                    #set 'end' to right-boundary of mountain i.e end of the mountain
+                    while end+1 < n and A[end] > A[end+1]:
+                        end += 1
+                    #record current answer
+                    ans = max(ans, end - base + 1)
+
+            base = max(end, base + 1) # change base and check for other mountains
+
+        return ans
+                
