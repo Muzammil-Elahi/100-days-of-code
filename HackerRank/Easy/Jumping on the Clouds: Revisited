@@ -1,0 +1,43 @@
+# Day 64
+# Link to question: https://www.hackerrank.com/challenges/jumping-on-the-clouds-revisited/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the jumpingOnClouds function below.
+def jumpingOnClouds(c, k):
+    i = 0
+    n =len(c)
+    energy = 100
+    done = False
+    while done == False:
+        i = (i+k)%n
+        print('i ',i)
+        if c[i] == 1:
+            energy-=2
+        if i == 0:
+            done = True
+        energy-=1
+    return energy
+    
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    nk = input().split()
+
+    n = int(nk[0])
+
+    k = int(nk[1])
+
+    c = list(map(int, input().rstrip().split()))
+
+    result = jumpingOnClouds(c, k)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
