@@ -1,0 +1,15 @@
+# useful whitboard table visualizing solutions: https://www.programcreek.com/2014/05/leetcode-h-index-java/
+# Day 65
+
+
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        citations.sort() # easier to check conditions and can traverse using loop
+        ans = 0
+        for i in range(len(citations)-1,-1,-1): # travsersing backwards
+            count = len(citations)-i
+            if citations[i] >= count: # n papers have atleast h citations
+                ans = count
+            else: # condition fails so we found the h-index
+                break # also meets second condition of N-h papers have <= h citations since array is sorted
+        return ans
