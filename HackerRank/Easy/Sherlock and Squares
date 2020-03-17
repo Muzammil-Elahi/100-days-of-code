@@ -1,0 +1,41 @@
+# Day 67
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the squares function below.
+def squares(a, b):
+    ans = math.floor(math.sqrt(b)) - math.floor(math.sqrt(a - 1))
+    """
+    don't have to look at all number in range
+    compare square roots of start/end
+    a/b may not be swuare numbers so round down
+    have to minus 1 from a in case a is a square number
+    since the wrong answer would be given if a stayed the same
+    for example a = 4, b = 9 the answer is 2 but if we don't subtract 1 from a
+    the answer we get is 1 as 3-2 = 1
+    """
+    return ans
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    q = int(input())
+
+    for q_itr in range(q):
+        ab = input().split()
+
+        a = int(ab[0])
+
+        b = int(ab[1])
+
+        result = squares(a, b)
+
+        fptr.write(str(result) + '\n')
+
+    fptr.close()
