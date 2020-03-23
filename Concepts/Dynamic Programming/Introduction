@@ -1,0 +1,45 @@
+# link: https://www.geeksforgeeks.org/dynamic-programming/
+# Day 73
+"""
+The issue with greedy algorithms is that it takes the local optimal choice whihc may not be the global maxima.
+Dynamic programming solves this also well run times by saving intermidiate results/sub problems so we don't have to re-calculate them later.
+It is an optimization approach for whenever recursion occurs.
+Below is an example using a Fibonacci sequence
+"""
+
+# standard recursive method
+
+def fib(n):
+   if n <= 1:
+       return n
+   else:
+       return(fib(n-1) + fib(n-2))
+ # complexity of O(2^n) i.e exponential
+ 
+ 
+ # USING DYNAMIC PROGRAMMING
+ 
+ fib = []
+ fib[0] = 0
+ fib[1] = 1
+ 
+ for i in range(2,n): # start at 2
+    fib[i] = fib[i-1] + fib[i-2]
+    
+ans = fib[n-1]
+
+ # notice this spefic implementation uses a for loop but recursion can still be used as seen below
+ 
+ fib = [0,1] 
+  
+def fibonacci(n): 
+    if n<0: 
+        print("Incorrect input") 
+    elif n<=len(fib): 
+        return fib[n-1] 
+    else: 
+        temp = fibonacci(n-1)+fibonacci(n-2) 
+        fib.append(temp) 
+        return temp
+        
+# Both have a time complexity of O(n)
