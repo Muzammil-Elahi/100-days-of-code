@@ -1,0 +1,59 @@
+# link: 
+# Day 74
+
+
+Let’s describe a state for our DP problem to be dp[x] with dp[0] as base state and dp[n] as our destination state.
+So,  we need to find the value of destination state i.e dp[n].
+If we start our transition from our base state i.e dp[0] and follow our state transition relation to reach our destination state dp[n],
+we call it Bottom Up approach as it is quite clear that we started our transition from the bottom base state
+and reached the top most desired state.
+
+Bottom up is straight foward. We start with our base case and then go from there towards the top
+
+# Example by implmentation function to return the facotorial of a number
+
+// Tabulated version to find factorial x.
+int dp[MAXN];
+
+// base case
+int dp[0] = 1;
+for (int i = 1; i< =n; i++)
+{
+    dp[i] = dp[i-1] * i;
+}
+
+
+The above code clearly follows the bottom-up approach as it starts its transition from the bottom-most base case dp[0]
+and reaches its destination state dp[n].
+Here, we may notice that the dp table is being populated sequentially
+and we are directly accessing the calculated states from the table itself and hence, we call it tabulation method.
+
+Top Bottom approach starts the same with a base case. 
+But just like in recursion the algorithm won't reach the base case until the very end. 
+
+
+# Example
+
+// Memoized version to find factorial x.
+// To speed up we store the values
+// of calculated states
+
+// initialized to -1
+int dp[MAXN]
+
+// return fact x!
+int solve(int x)
+{
+    if (x==0)
+        return 1;
+    if (dp[x]!=-1)
+        return dp[x];
+    return (dp[x] = x * solve(x-1));
+}
+
+
+As we can see we are storing the most recent cache up to a limit
+so that if next time we got a call from the same state we simply return it from the memory. 
+So, this is why we call it memoization as we are storing the most recent state values.
+
+
