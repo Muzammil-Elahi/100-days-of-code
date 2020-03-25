@@ -1,0 +1,52 @@
+link: https://www.geeksforgeeks.org/solve-dynamic-programming-problem/
+Day 75
+
+High level look at how to solve DP problem
+1) Identify if it is a DP problem
+2) Decide a state expression with least parameters
+3) Formulate state relationship    
+4) Do tabulation (or add memoization)
+
+1) Usually all the problems that require to maximize or minimize certain quantity or counting problems
+that say to count the arrangements under certain condition. Even certain probability problems can be solved by using Dynamic Programming.
+All dynamic programming problems satisfy the overlapping subproblems property
+and most dynamic problems also satisfy the optimal substructure property. I.e there are DP problems that don't have/require a optimal substructure
+Also long these properties are met it can be solved using DP
+
+2) DP problems are all about state and their transition.
+This is the most basic step which must be done very carefully
+because the state transition depends on the choice of state definition we make.
+A state can be defined as the set of parameters that can uniquely identify a certain position or standing in the given problem.
+This set of parameters should be as small as possible to reduce state space. 
+In way this relates to our base case as well as when the calculations are made.
+For example in the Knapsack problem, we define our state by two parameters index and weight i.e DP[index][weight].
+Here DP[index][weight] tells us the maximum profit it can make by taking items
+from range 0 to index having the capacity of sack to be weight.
+Therefore, here the parameters index and weight together can uniquely identify a subproblem for the knapsack problem.
+
+3) This part is the hardest part of for solving a DP problem and requires a lot of intuition, observation and practice.
+Not much can be said other than that.
+
+4) This is the easiest part once you figure out the relationships between states.
+If you go witht the memoization approach then you get a recurisve algorithm. Otherwise you can have an interative algorithm for tabulation.
+
+# Example given the numbers 1,3,5 how many ways can they be added to sum to a number N (memoization)
+
+// initialize to -1 
+int dp[MAXN]; 
+    
+int solve(int n) 
+{  
+  // base case 
+  if (n < 0)   
+      return 0; 
+  if (n == 0)   
+      return 1; 
+  
+  // checking if already calculated 
+  if (dp[n]!=-1)  
+      return dp[n]; 
+  
+  // storing the result and returning 
+  return dp[n] = solve(n-1) + solve(n-3) + solve(n-5); 
+} 
