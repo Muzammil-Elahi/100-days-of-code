@@ -1,0 +1,37 @@
+# Day 85
+
+#!/bin/python3
+from collections import Counter
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the makingAnagrams function below.
+def makingAnagrams(s1, s2):
+    i = Counter(s1)
+    j = Counter(s2)
+    x = i - j # computes set difference w.r.t s1
+    y = j - i # computes set difference w.r.t s2
+    z = x + y # groups all unique elements and thier freqeuncies from both lists
+    """
+    print(i)
+    print(j)
+    print(x)
+    print(y)
+    print(z)
+    """
+    return len(list(z.elements()))
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    s1 = input()
+
+    s2 = input()
+
+    result = makingAnagrams(s1, s2)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
