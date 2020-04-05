@@ -1,0 +1,37 @@
+# Day 86
+
+
+#!/bin/python3
+from collections import Counter
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the gameOfThrones function below.
+def gameOfThrones(s):
+    ans = "YES"
+    odd = 0
+    unique = []
+    for i in range(len(s)):
+        if s[i] not in unique:
+            unique.append(s[i])
+            temp = s.count(s[i])
+            if temp % 2 != 0: # odd number
+                odd+=1
+            if odd > 1: # can't have more than 1 letter with an odd frequency
+                ans = "NO"
+                break
+    return ans
+    #print(Counter(s))
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    s = input()
+
+    result = gameOfThrones(s)
+
+    fptr.write(result + '\n')
+
+    fptr.close()
