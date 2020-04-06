@@ -4,6 +4,8 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         """
+        BELOW IS MY ORIGINAL CODE (COMMENTED OUT)
+        
         length = 1
         i = 0
         j = i+1
@@ -22,7 +24,6 @@ class Solution:
                 print("length ",length)
         return length
         """
-        
         
         length = 0
         unique = []
