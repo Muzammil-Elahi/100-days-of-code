@@ -1,0 +1,44 @@
+# useful link: https://leetcode.com/problems/longest-substring-without-repeating-characters/discuss/564013/Python-3%3A-sliding-window-with-detailed-explanations
+# Day 87
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        """
+        length = 1
+        i = 0
+        j = i+1
+        
+        while j < len(s):
+            print("s[i]",s[i],end="")
+            print(" s[j]",s[j])
+            #print("j", j)
+            if s[i] != s[j] and s[j] not in s[i+1:j]:
+                j+=1
+                if abs(j-i) > length: 
+                    length = abs(j-i)
+            elif s[i] == s[j] or s[j] in s[i+1:j]:
+                i+=1
+                j = i+1
+                print("length ",length)
+        return length
+        """
+        
+        
+        length = 0
+        unique = []
+        n = len(s)
+        if n == 0: # edge case
+            return 0
+        if n == 1:
+            return 1
+        for i in range(n):
+            if s[i] not in unique: # if we haven't seen a given letter, let's add it to the list 'un'
+                unique.append(s[i])
+                length= max(length, len(unique)) # keep the length of the longest chain that we came across so far
+            else: # if we bump into a letter that we've already seen 
+                  # reshape our list: un.index(s) - it's the index of the element that we've already seen
+                  # plus one moves us to the next element, while ':' to the end of the list
+                  # + [s] takes this repetitive element and puts it to the end of the list. Thus, we make a sliding step and reshaped the list 'un' 
+                unique = unique[unique.index(s[i])+1:] + [s[i]]
+        return length
+                    
