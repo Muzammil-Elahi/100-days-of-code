@@ -1,0 +1,45 @@
+resources:
+1) https://www.tutorialspoint.com/data_structures_algorithms/depth_first_traversal.htm
+2) https://www.youtube.com/watch?v=iaBEKo5sM7w
+3) https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/
+4) https://medium.com/basecs/deep-dive-through-a-graph-dfs-traversal-8177df5d0f13
+
+The way this algorithm works:
+1) Visit the adjacent unvisited vertex. Mark it as visited. Display it. Push it in a stack.
+2) If no adjacent vertex is found, pop up a vertex from the stack.
+(It will pop up all the vertices from the stack, which do not have adjacent vertices.)
+3) Repeat step 1 and step 2 until the stack is empty.
+
+Time complexity of O(V + E)
+
+Implementation that I found easiest to understand: https://www.educative.io/edpresso/how-to-implement-depth-first-search-in-python
+
+# Using a Python dictionary to act as an adjacency list
+graph = {
+    'A' : ['B','C'],
+    'B' : ['D', 'E'],
+    'C' : ['F'],
+    'D' : [],
+    'E' : ['F'],
+    'F' : []
+}
+
+visited = set() # Set to keep track of visited nodes. Works like a stack
+
+def dfs(visited, graph, node):
+    if node not in visited:
+        print (node)
+        visited.add(node)
+        for neighbour in graph[node]:
+            dfs(visited, graph, neighbour)
+
+# Driver Code
+dfs(visited, graph, 'A')
+
+Lines 16-23: The illustrated graph is represented using an adjacency list - an easy way to do it in Python is to use a dictionary data structure. Each vertex has a list of its adjacent nodes stored.
+Line 25: visited is a set that is used to keep track of visited nodes.
+Line 35: The dfs function is called and is passed the visited set, the graph in the form of a dictionary, and A, which is the starting node.
+Lines 27-32: dfs follows the algorithm described above:
+It first checks if the current node is unvisited - if yes, it is appended in the visited set.
+Then for each neighbor of the current node, the dfs function is invoked again.
+The base case is invoked when all the nodes are visited. The function then returns.
