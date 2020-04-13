@@ -1,0 +1,28 @@
+# useful link: https://www.ideserve.co.in/learn/trapping-rain-water-between-towers
+# Day 91
+
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        water = 0
+        current = 0 # current index we are at, also a temp var
+        rs = [-1] * len(height) # keep track of max values on right side of array
+        n = len(height)
+        ls = 0 # keep track of max values on left side of array, don't need an array for this as we will be looping from the left side
+        for i in range(n-1,-1): # filling right side array
+            print("height[i] ",height[i])
+            print("current ",current)
+            if (height[i] > current):
+                current = height[i]
+                rs[i] = current
+            else:
+                rs[i] = current
+            print("rs[i] ", rs[i])
+
+        
+        for i in range(n): # actual calculation of water
+            water += + max(min(ls, rs[i]) - height[i], 0) # take min of left and right side - the height at i and take the max with 0, covers all cases
+            if (height[i] > ls):
+                ls = height[i]
+        return water
+        
+# Time/Space complexity is O(n)
