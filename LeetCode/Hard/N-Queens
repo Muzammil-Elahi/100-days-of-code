@@ -1,0 +1,43 @@
+// useful links: https://leetcode.com/problems/n-queens/discuss/205025/THE-BEST-EXPLANATION-OF-N-QUEENS-VIDEO
+// https://aaronice.gitbooks.io/lintcode/graph_search/n_queens.html
+// Day 92
+
+
+// THE CODE BELOW RETURNS AN INTEGER REPRESENTATION OF THE BOARD FOR ALL POSSIBLE SOLUTIONS
+// WHICH IS DIFFERENT THAN WHAT LEETCODE ASKS FOR CHECK SECOND LINK FOR THAT SOLUTION
+import java.util.Math;
+import java.util.ArrayList;
+class Solution {
+    public List<List<String>> solveNQueens(int n) {
+     List<List<Integer>> results = new ArrayList<>();
+       // List<List<String>> finalAns = new ArrayList<>(); // will convert numeric ans to string Q and .
+        NQueensAux(n,0,new ArrayList<Integer>(),result);
+        
+        //return finalAns
+        return results
+    }
+    private static boolean Valid(List<Integer> cols){ // cols = column positions/placement, checks if currently placed queen can be attacked or not  
+        int row = cols.size() - 1;
+        for (int i = 0; i < row; i++){
+            int diff = Math.abs(cols.get(i) - cols.get(row));
+            if (diff == 0 || diff == row-i){ // i.e if in same row/col or diagonal
+                return false;
+            }
+        }
+        return true;
+    }
+    private static void NQueensAux (int n, int row, List<Integer> cols,List<List<Integer>> results){
+        if (row == n){ // goal/base case
+            results.add(new ArrayList<>(cols));
+        }
+        else{
+            for (int col = 0; col < n; col++){
+                cols.add(col); // our choice
+                if (Valid(cols)){
+                    NQueensAux(n,row+1,cols,results); // our constraints
+                }
+                cols.remove(cols.size()-1) ;// undo choice
+            }
+        }
+    }
+}
