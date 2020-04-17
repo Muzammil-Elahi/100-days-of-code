@@ -1,0 +1,17 @@
+# useful links for more efficent solution: https://leetcode.com/problems/reverse-pairs/solution/
+# Day 95
+
+# BELOW IS MY NAIVE O(n)^2 APPROACH CAN BE DONE MORE EFFICENTLY CHECK OUT LINK ABOVE USING EITHER BINARY INDEX TREE OR MODIFIED MERGE SORT
+
+class Solution:
+    def reversePairs(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n < 2:
+            return 0
+        count = 0
+        #nums.sort()
+        for i in range(n):
+            for j in range(n):
+                if i < j and nums[i] > 2*nums[j]:
+                    count+=1
+        return count
