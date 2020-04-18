@@ -1,0 +1,66 @@
+# useful link: https://medium.com/@CalvinChankf/solving-basic-calculator-i-ii-iii-on-leetcode-74d926732437
+# day 96
+# code taken from above link added comments for my own understanding
+
+class Solution: # O(n) solution
+    def calculate(self, s: str) -> int:
+        s = s.strip()
+        s = s.replace(" ","") # getting rid of white spaces
+        ans = 0
+        stack = [] # can get away with using an array in python if we use it right
+        # 1 means positive, -1 means negative
+        # we declare it as an integer because we want to put the +- in the stack too
+        sign = 1
+        num = 0
+        i = 0
+        while i < len(s):
+            if s[i].isdigit():
+                # construct a multi-digits number if any, e.g. "23" = 2*10+3 = 23
+                j = i
+                num = 0
+                while j < len(s) and s[j].isdigit():
+                    num = num*10 + int(s[j])
+                    j += 1
+                # sum up the intermediate result
+                ans += sign * num
+                i = j
+            elif s[i] == '+':
+                # the next number will be using +
+                sign = 1
+                i += 1
+            elif s[i] == '-':
+                # the next number will be using -
+                sign = -1
+                i += 1
+            elif s[i] == '(':
+                # push the intermediate result calculated so far and sign into the stack
+                stack.append(ans)
+                stack.append(sign)
+                # since we have put the intermediate result in stack,
+                # we can reset the things for calculation starting from (
+                ans = 0
+                sign = 1
+                i += 1
+            elif s[i] == ')':
+                # last item is the sign we saved for calculation e.g. 1+(2+3) the 1st +
+                sign = stack.pop()
+                # soFar is the intermediate result before this level, (xxx)
+                soFar = stack.pop()
+                # sign*ans is the result within the current (xxx)
+                res = soFar + sign * ans
+                i += 1
+        return ans
+        """
+        temp = [] 
+        n = len(s)
+        print(s)
+        if "(" not in s: # don't have to check for ) as given string is valid so if one appears the other will also appear
+            for i in range(len(s)):
+                if s[i].isdigit(): # if it's a number
+                    temp.append(s[i])
+                elif s[i] == "+":
+        """
+                    
+                    
+                
+            
