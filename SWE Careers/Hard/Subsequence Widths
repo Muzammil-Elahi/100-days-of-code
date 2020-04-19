@@ -1,0 +1,30 @@
+# useful links: https://www.geeksforgeeks.org/sum-of-width-max-and-min-diff-of-all-subsequences/
+# Day 97
+
+# O(nlogn)
+import math
+class Solution:
+    def sumSubseqWidths(self, A: List[int]) -> int:
+        mod = 10**9+7
+        n = len(A)
+        total = 0
+        A.sort()
+        
+        temp = [1] 
+        for i in range(1, n): 
+            temp.append(temp[-1] * 2 % mod) # holds values of length of array -1 to power of 2  
+            #print(temp)
+  
+        for i, x in enumerate(A): # going through elements of array 2 at a time
+            #print("i ",i,end=" ")
+            #print("x ",x)
+            total = (total + (temp[i] - temp[n- 1 - i]) * x) % mod 
+        return total 
+        
+        """
+        for i in range(n):
+            for j in range(i+1,n):
+                total+= max(A[i:j+1])-min(A[i:j+1]) % mod
+        return total
+        """
+        
