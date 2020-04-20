@@ -1,0 +1,45 @@
+# useful link: https://leetcode.com/problems/jump-game-ii/discuss/18035/Easy-Python-Greedy-solution-with-explanation/170328
+# Day 98
+
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        n = len(nums)
+        jumps = 0
+        cj = 0 # current max jump
+        pj = 0 # previous max jump
+               
+        for i in range(n-1): # since we want to reach last index no need to process it
+            cj = max(cj, i + nums[i])
+            # Note 1         
+            if i == pj:
+                jumps += 1 
+                pj = cj
+                # Note 2            
+        return jumps
+        """
+        Note 1: We want to find what's the furthest we can go from our current jump.
+        It may be that an index previous to this one in our current jump could have had a longer reach than our current index,
+        if so, that would have been stored in current max jump during earlier iterations of this loop,
+        otherwise, nums[i] gives the furthest we can go during the current jump, and we update current max jump with it.
+        At the beginning, no previous jumps have been made, so that the max is automatically the number of jumps stored in nums[0].
+        In general the current jump would include all the indices that were reachable from the last jump: we want to find the greatest distance we can go given all these possible starting points.
+        Note 2: If our current index reaches the furthest point our last jump could have gone,
+        then a new jump would be needed to get to any of the indices after it.
+        Thus we increment jumps, and since the current jump is now a new jump,
+        we make previous max jump be the current max jump, that is,
+        our previous jump can now get us as far as current jump max,
+        since we've now started a new jump. Jumps will thus increment only when a new jump is necessary to reach an index.
+        Once we've iterated through the array, jumps store the minimum needed to get to the end.
+        """
+        
+        
+        """
+        COMMENTED OUT ORIGINAL CODE
+        nums.sort(reverse = True)
+        #print(nums)
+        i = 0
+        while i < n:
+            i+=nums[i]
+            jumps+=1
+        return jumps
+        """
